@@ -1,0 +1,13 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+.coverage
+.idea/
+.DS_Store
+build/
+dist/
+outputs/*
+!outputs/.gitkeep
