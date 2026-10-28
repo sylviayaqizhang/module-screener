@@ -1,9 +1,12 @@
 import numpy as np
+import json
+from pathlib import Path
 
 from module_screener.analysis.generate_demo_data import (
     generate_module_responses,
     generate_student,
     generate_dataset,
+    save_dataset
 )
 
 # test if the number of questions is correct, 5 questions
@@ -56,3 +59,19 @@ def test_student_id():
     # check if id is unique
     assert len(ids) == len(set(ids))
 
+
+# test dataset file successfully generated and saved
+def test_save_dataset(tmp_path):
+    rng = np.random.default_rng(88)
+    dataset = generate_dataset(rng, n_students=3)
+
+    filepath = tmp_path / "test_data.json"
+    save_dataset(dataset, filepath)
+
+    # check if the file path exists
+    assert filepath.exists()
+
+    # verify the dataset remaining unchanged after saving and loading
+    with open(filepath, "r", encoding="utf-8") as file:
+        loaded = json.load(file)
+    assert loaded == dataset
