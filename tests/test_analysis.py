@@ -22,6 +22,7 @@ from module_screener.analysis.visualisation import (
     plot_familiarity_ability,
     plot_composite_distribution,
     plot_recommendation_boxplot,
+    plot_all_figures,
 )
 
 
@@ -148,5 +149,21 @@ def test_boxplot():
     fig = plot_recommendation_boxplot(dataset, "python")
 
     assert fig is not None
+
+    plt.close(fig)
+
+# test the final figures contain all six plots
+def test_plot_all_figures_creates_six_panel_grid(sample_dataset):
+    fig = plot_all_figures(sample_dataset)
+
+    assert len(fig.axes) == 6
+    assert [ax.get_title() for ax in fig.axes] == [
+        "Python: Familiarity vs Ability",
+        "Math: Familiarity vs Ability",
+        "Python: Composite Score Distribution",
+        "Math: Composite Score Distribution",
+        "Python: Scores by Recommended Level",
+        "Math: Scores by Recommended Level",
+    ]
 
     plt.close(fig)
