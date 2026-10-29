@@ -89,10 +89,6 @@ def generate_student(student_id, rng):
         "recommendation": math_recommendation
     }
 
-
-
-
-
     return student
 
 
