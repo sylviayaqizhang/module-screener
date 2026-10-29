@@ -50,4 +50,11 @@ def test_main_saves_scored_module_responses(tmp_path, monkeypatch, capsys):
 		"recommendation": "advanced",
 	}
 	assert record["modules"]["math"]["recommendation"] == "intro"
-	assert "print(2 + 2)" in capsys.readouterr().out
+	output = capsys.readouterr().out
+	assert "print(2 + 2)" in output
+	assert "MODULE RECOMMENDATIONS" in output
+	assert "PROGRAMMING" in output
+	assert "MATH" in output
+	assert ">>> ADVANCED <<<" in output
+	assert ">>> INTRO <<<" in output
+	assert "composite score" not in output.lower()

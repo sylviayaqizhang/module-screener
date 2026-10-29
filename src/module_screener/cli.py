@@ -42,5 +42,11 @@ def main() -> None:
 		}
 		for module_name, module_answers in answers.items()
 	}
+	print("\n" + "=" * 48)
+	print("MODULE RECOMMENDATIONS".center(48))
+	print("=" * 48)
+	for module_name, module_result in modules.items():
+		print(f"\n{module_name.upper()}: {module_result['recommendation'].upper()}")
+
 	output_path = append_response({"modules": modules}, args.output)
-	print(f"Thank you. Your responses were saved to {output_path}.")
+	print(f"\nThank you. Your responses were saved to {output_path}.")
