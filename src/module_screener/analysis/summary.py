@@ -41,6 +41,20 @@ def summarise_module(dataset, module_name):
         "composite": summarise_scores(scores["composite"])
     }
 
+# print summary statistics in a readable table
+def print_summary(summary, module_name):
+    columns = ["n", "mean", "median", "sd", "min", "max"]
+
+    print(f"\n{module_name.upper()} SUMMARY")
+    print(f"{'Measure':<15}" + "".join(f"{col.title():>9}" for col in columns))
+    print("-" * 69)
+
+    for measure, stats in summary.items():
+        values = "".join(
+            f"{stats[col]:>9.0f}" if col == "n" else f"{stats[col]:>9.2f}"
+            for col in columns
+        )
+        print(f"{measure.capitalize():<15}{values}")
 
 if __name__ == "__main__":
     with open("data/demo_data.json", "r", encoding="utf-8") as file:
@@ -49,8 +63,5 @@ if __name__ == "__main__":
     python_summary = summarise_module(dataset, "python")
     math_summary = summarise_module(dataset, "math")
 
-    print("PYTHON SUMMARY")
-    print(python_summary)
-
-    print("MATHS SUMMARY")
-    print(math_summary)
+    print_summary(python_summary, "python")
+    print_summary(math_summary, "math")
