@@ -55,6 +55,6 @@ def test_main_saves_scored_module_responses(tmp_path, monkeypatch, capsys):
 	assert "MODULE RECOMMENDATIONS" in output
 	assert "PROGRAMMING" in output
 	assert "MATH" in output
-	assert ">>> ADVANCED <<<" in output
-	assert ">>> INTRO <<<" in output
+	assert "PROGRAMMING: ADVANCED" in output
+	assert "MATH: INTRO" in output
 	assert "composite score" not in output.lower()
