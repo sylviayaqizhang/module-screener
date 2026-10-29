@@ -32,3 +32,35 @@ You can also run it from the source tree without installing:
 ```bash
 PYTHONPATH=src python -m module_screener
 ```
+
+
+## Cohort Analysis for Demonstration
+
+From the repository root, with the virtual environment activated:
+
+### 1. Generate synthetic data (50 students)
+```bash
+python -m module_screener.analysis.generate_demo_data
+```
+
+### 2. View summary statistics
+```bash
+python -m module_screener.analysis.summary
+```
+
+### 3. View visualisations
+```bash
+python -m module_screener.analysis.visualisation
+```
+
+# Run without installing the package
+
+Use `PYTHONPATH=src` before each command:
+
+```bash
+PYTHONPATH=src python -m module_screener.analysis.generate_demo_data
+PYTHONPATH=src python -m module_screener.analysis.summary
+PYTHONPATH=src python -m module_screener.analysis.visualisation
+```
+
+*All data and recommendations are synthetic and for demonstration purposes only.*
