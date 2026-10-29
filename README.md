@@ -1,5 +1,7 @@
 # module-screener
 
+The module screener is a prototype command line interface program that assesses the user's abilities in two modules, Programming and Math, and recommends a course to the user based on their confidence. The program takes two values for each question: a familiarity score and an ability score. The questions are designed to show examples of concepts so the user knows exactly what is being tested. The program has two parts: the actual CLI part, and a data analysis portion. For the data analysis portion, pseudodata is generated on the spot to give an idea for what kinds of statistics will be available from the data.
+
 ## Run the screener program
 
 Create the virtual environment and install the project with its test tools:
