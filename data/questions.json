@@ -1,0 +1,18 @@
+{
+  "modules": {
+    "programming": {
+      "questions": {
+        "Q1": {
+          "example": "numbers = [2, 4, 6]\naverage = sum(numbers) / len(numbers)\nprint(average)"
+        }
+      }
+    },
+    "math": {
+      "questions": {
+        "Q1": {
+          "example": "Solve for x:\n3x + 5 = 20"
+        }
+      }
+    }
+  }
+}
