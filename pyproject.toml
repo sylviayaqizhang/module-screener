@@ -7,6 +7,7 @@ name = "module-screener"
 version = "0.1.0"
 description = "A command-line module interest screener"
 requires-python = ">=3.10"
+dependencies = ["numpy>=1.26", "matplotlib>=3.8"]
 
 [project.optional-dependencies]
 test = ["pytest>=8.0"]
