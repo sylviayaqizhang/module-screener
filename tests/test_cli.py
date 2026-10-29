@@ -1,5 +1,7 @@
 import json
 
+import pytest
+
 from module_screener.cli import main
 
 
@@ -58,3 +60,39 @@ def test_main_saves_scored_module_responses(tmp_path, monkeypatch, capsys):
 	assert "PROGRAMMING: ADVANCED" in output
 	assert "MATH: INTRO" in output
 	assert "composite score" not in output.lower()
+	assert "Type 'exit' at any prompt to leave without saving." in output
+
+
+@pytest.mark.parametrize("answers", [["exit"], ["", "exit"]])
+def test_main_exit_cancels_without_saving(tmp_path, monkeypatch, capsys, answers):
+	question_file = tmp_path / "questions.json"
+	question_file.write_text(
+		json.dumps(
+			{
+				"modules": {
+					"programming": {
+						"questions": {"Q1": {"example": "print(1)"}}
+					}
+				}
+			}
+		),
+		encoding="utf-8",
+	)
+	output_file = tmp_path / "responses.json"
+	answer_iter = iter(answers)
+	monkeypatch.setattr("builtins.input", lambda _prompt: next(answer_iter))
+	monkeypatch.setattr(
+		"sys.argv",
+		[
+			"module-screener",
+			"--questions",
+			str(question_file),
+			"--output",
+			str(output_file),
+		],
+	)
+
+	main()
+
+	assert not output_file.exists()
+	assert "Exiting screener. No responses were saved." in capsys.readouterr().out

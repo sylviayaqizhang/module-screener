@@ -9,6 +9,17 @@ RATING_PROMPTS = (
 )
 
 
+class QuestionnaireExit(Exception):
+	"""Raised when the user chooses to leave the questionnaire."""
+
+
+def _read_input(prompt: str, input_fn: Callable[[str], str]) -> str:
+	answer = input_fn(prompt).strip()
+	if answer.lower() == "exit":
+		raise QuestionnaireExit
+	return answer
+
+
 def ask_questions(
 	question_file: str | Path = Path("data") / "questions.json",
 	input_fn: Callable[[str], str] | None = None,
@@ -25,7 +36,10 @@ def ask_questions(
 
 	responses = {}
 	for module_name, module_data in question_data["modules"].items():
-		input_fn(f"Press enter to continue to the {module_name.title()} screening")
+		_read_input(
+			f"Press enter to continue to the {module_name.title()} screening",
+			input_fn,
+		)
 		output_fn("\n" + "=" * 60)
 		output_fn(f"{module_name.upper()} SCREENING".center(60))
 		output_fn("=" * 60)
@@ -37,7 +51,7 @@ def ask_questions(
 			responses[module_name][question_id] = {}
 			for rating, prompt in RATING_PROMPTS:
 				while True:
-					answer = input_fn(f"{prompt} (1-4)\n> ").strip()
+					answer = _read_input(f"{prompt} (1-4)\n> ", input_fn)
 					try:
 						score = int(answer)
 					except ValueError:

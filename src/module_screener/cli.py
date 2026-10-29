@@ -1,7 +1,7 @@
 import argparse
 from pathlib import Path
 
-from module_screener.questionnaire import ask_questions
+from module_screener.questionnaire import QuestionnaireExit, ask_questions
 from module_screener.recommendations import recommendation_for
 from module_screener.scoring import score_modules
 from module_screener.storage import append_response
@@ -27,10 +27,16 @@ def main() -> None:
 	print("WELCOME TO THE DTC MODULE SCREENER".center(48))
 	print("=" * 48)
 	print("Rate your familiarity and ability from 1 (lowest) to 4 (highest).")
+	print("Type 'exit' at any prompt to leave without saving.")
 	print("Your scores and recommendations will be saved.")
 	print()
 
-	answers = ask_questions(args.questions)
+	try:
+		answers = ask_questions(args.questions)
+	except QuestionnaireExit:
+		print("\nExiting screener. No responses were saved.")
+		return
+
 	scores = score_modules(answers)
 	modules = {
 		module_name: {
